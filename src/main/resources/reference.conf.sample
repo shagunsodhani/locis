@@ -1,0 +1,7 @@
+#mysql config
+
+mysql.username=
+mysql.host=
+mysql.port=
+mysql.password=
+mysql.database=
