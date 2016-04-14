@@ -5,3 +5,7 @@ mysql.host=
 mysql.port=
 mysql.password=
 mysql.database=
+
+#Hadoop FileSystem config
+
+fs.defaultFS=
