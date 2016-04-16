@@ -9,3 +9,5 @@ mysql.database=
 #Hadoop FileSystem config
 
 fs.defaultFS=
+
+distance.threshold=

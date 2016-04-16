@@ -26,7 +26,7 @@ class HDFSWriter {
     val progressable = new Progressable() {
       @Override
       def progress() {
-        println("....");
+        print(".");
       }
     }
     fileSystem.create(new Path(outputFilePath), progressable)
