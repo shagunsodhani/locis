@@ -15,7 +15,8 @@ class GridMapper extends Mapper[LongWritable, Text, LongWritable, Text] {
   private def getGridNumber(dataPoint: String): Long = {
     1L
   }
-  def map(key: LongWritable, value: Text, context: Context) = {
+  override def map(key: LongWritable, value: Text,
+                   context: Mapper[LongWritable, Text, LongWritable, Text]#Context) = {
     val gridNumber = new LongWritable(getGridNumber(value.toString()))
     context.write(gridNumber, value)
   }
