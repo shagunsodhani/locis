@@ -1,4 +1,4 @@
-package com.github.locis.jobs
+package com.github.locis.map
 
 import org.apache.hadoop.io.LongWritable
 import org.apache.hadoop.io.Text

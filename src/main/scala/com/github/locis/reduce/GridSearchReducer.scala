@@ -1,4 +1,4 @@
-package com.github.locis.jobs
+package com.github.locis.reduce
 
 import org.apache.hadoop.io.LongWritable
 import org.apache.hadoop.io.Text

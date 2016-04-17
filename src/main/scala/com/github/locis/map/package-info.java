@@ -5,4 +5,4 @@
  * @author shagun
  *
  */
-package com.github.locis.jobs;
+package com.github.locis.map;
