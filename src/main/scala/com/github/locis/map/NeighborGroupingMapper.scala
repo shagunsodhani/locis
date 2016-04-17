@@ -2,6 +2,8 @@ package com.github.locis.map
 
 import org.apache.hadoop.io.Text
 import org.apache.hadoop.mapreduce.Mapper
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 /*
  * This class maps the input data points to one of their neighbors.
@@ -10,6 +12,8 @@ import org.apache.hadoop.mapreduce.Mapper
 
 class NeighborGroupingMapper extends Mapper[Text, Text, Text, Text] {
 
+  private val logger: Logger = LoggerFactory.getLogger(getClass)
+  
   private val sep = ","
   private val typeIndex = 1
 

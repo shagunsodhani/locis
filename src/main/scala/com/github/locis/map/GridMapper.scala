@@ -3,6 +3,8 @@ package com.github.locis.map
 import org.apache.hadoop.io.LongWritable
 import org.apache.hadoop.io.Text
 import org.apache.hadoop.mapreduce.Mapper
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 /*
  * This class maps the input data points to the grid number. For now, we are 
@@ -12,6 +14,8 @@ import org.apache.hadoop.mapreduce.Mapper
 
 class GridMapper extends Mapper[LongWritable, Text, LongWritable, Text] {
 
+  private val logger: Logger = LoggerFactory.getLogger(getClass)
+  
   private def getGridNumber(dataPoint: String): Long = {
     1L
   }
