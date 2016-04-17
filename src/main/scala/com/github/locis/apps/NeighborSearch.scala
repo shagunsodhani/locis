@@ -13,8 +13,8 @@ import org.apache.hadoop.util.GenericOptionsParser
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-import com.github.locis.jobs.GridMapper
-import com.github.locis.jobs.GridSearchReducer
+import com.github.locis.map.GridMapper
+import com.github.locis.reduce.GridSearchReducer
 import com.typesafe.config.ConfigFactory
 
 object NeighborSearch {
