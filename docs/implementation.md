@@ -15,5 +15,10 @@
 * Input: Data in the form (id, type, (latitude, longitude))
 * Map data points to different grids.
 * Use plane-sweep algorithm to find neighbors for each data point.
-* Count data points for different types.
-* Generate size k co-locations (to be expanded.)
+* Perform neighbor grouping.
+* Count instances for different types.
+* Generate size k co-locations.
+
+## Notes
+
+* The algorithm does not perform candidate set generation.
