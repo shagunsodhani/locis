@@ -7,6 +7,12 @@ import org.slf4j.LoggerFactory
 
 import com.github.locis.utils.DataParser
 
+/*
+ * This class groups all the neighbors for a given key (dataPoint) in sorted order. 
+ * algorithm. 
+ * See : https://github.com/shagunsodhani/locis/issues/6
+ */
+
 class NeighborGroupingReducer extends Reducer[Text, Text, Text, Seq[Text]] {
   private val logger: Logger = LoggerFactory.getLogger(getClass)
 
