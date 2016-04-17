@@ -3,10 +3,12 @@ package com.github.locis.reduce
 import org.apache.hadoop.io.LongWritable
 import org.apache.hadoop.io.Text
 import org.apache.hadoop.mapreduce.Reducer
-import com.typesafe.config.ConfigFactory
-import com.github.locis.utils.DistanceMeasure
-import org.slf4j.LoggerFactory
 import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+
+import com.github.locis.utils.DataParser
+import com.github.locis.utils.DistanceMeasure
+import com.typesafe.config.ConfigFactory
 
 /*
  * This class finds all the neighbors in a given grid using the plane-sweep 
@@ -20,24 +22,12 @@ class GridSearchReducer extends Reducer[LongWritable, Text, Text, Text] {
 
   private val distanceThreshold: Double = ConfigFactory.load.getDouble("distance.threshold")
 
-  private val sep = ","
-  private val xIndex = 2 //longitude
-  private val yIndex = 3 //latitude
-
-  private def getX(dataPoint: String): Double = {
-    dataPoint.split(sep)(xIndex).toDouble
-  }
-
-  private def getY(dataPoint: String): Double = {
-    dataPoint.split(sep)(yIndex).toDouble
-  }
-
   private def getDistance(dataPoint1: String, dataPoint2: String): Double = {
-    val lat1 = getY(dataPoint1)
-    val lat2 = getY(dataPoint2)
+    val lat1 = DataParser.getY(dataPoint1)
+    val lat2 = DataParser.getY(dataPoint2)
 
-    val lng1 = getX(dataPoint1)
-    val lng2 = getX(dataPoint2)
+    val lng1 = DataParser.getX(dataPoint1)
+    val lng2 = DataParser.getX(dataPoint2)
 
     DistanceMeasure.haversineDistance(lat1, lng1, lat2, lng2)
   }
@@ -49,7 +39,7 @@ class GridSearchReducer extends Reducer[LongWritable, Text, Text, Text] {
       while (dataPointIterator.hasNext()) {
         tempObjectSet += dataPointIterator.next().toString()
       }
-      tempObjectSet.toSeq.sortBy { dataPoint => getX(dataPoint) }
+      tempObjectSet.toSeq.sortBy { dataPoint => DataParser.getX(dataPoint) }
     }
     //    sorted Object Set
     var activeSet = Set[String]()
@@ -59,15 +49,15 @@ class GridSearchReducer extends Reducer[LongWritable, Text, Text, Text] {
     (1 to n).foreach {
       i =>
         {
-          while (getX(objectSet(i)) - getX(objectSet(j)) > distanceThreshold) {
+          while (DataParser.getX(objectSet(i)) - DataParser.getX(objectSet(j)) > distanceThreshold) {
             activeSet -= objectSet(i)
             j += 1
           }
           val range = activeSet
             .filter { dataPoint =>
               {
-                val yDataPoint = getY(dataPoint)
-                val yObjectSetPoint = getY(objectSet(i))
+                val yDataPoint = DataParser.getY(dataPoint)
+                val yObjectSetPoint = DataParser.getY(objectSet(i))
                 ((yDataPoint <= yObjectSetPoint + distanceThreshold)
                   && (yDataPoint >= yObjectSetPoint - distanceThreshold))
               }

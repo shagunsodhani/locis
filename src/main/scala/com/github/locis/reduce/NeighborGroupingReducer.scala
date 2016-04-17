@@ -5,15 +5,10 @@ import org.apache.hadoop.mapreduce.Reducer
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
+import com.github.locis.utils.DataParser
+
 class NeighborGroupingReducer extends Reducer[Text, Text, Text, Seq[Text]] {
   private val logger: Logger = LoggerFactory.getLogger(getClass)
-
-  private val sep = ","
-  private val typeIndex = 1
-
-  private def getType(dataPoint: String) = {
-    dataPoint.split(sep)(typeIndex)
-  }
 
   override def reduce(key: Text, values: java.lang.Iterable[Text],
                       context: Reducer[Text, Text, Text, Seq[Text]]#Context): Unit = {
@@ -23,7 +18,7 @@ class NeighborGroupingReducer extends Reducer[Text, Text, Text, Seq[Text]] {
       while (dataPointIterator.hasNext()) {
         tempObjectSet += dataPointIterator.next().toString()
       }
-      tempObjectSet.toSeq.sortBy { dataPoint => getType(dataPoint) }
+      tempObjectSet.toSeq.sortBy { dataPoint => DataParser.getType(dataPoint) }
     }.map { dataPoint => new Text(dataPoint) }
     val nRecord = Seq(key) ++ sortedObjectSet
     context.write(key, nRecord)
