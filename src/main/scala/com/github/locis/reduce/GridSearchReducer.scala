@@ -22,7 +22,17 @@ class GridSearchReducer extends Reducer[LongWritable, Text, Text, Text] {
 
   private val distanceThreshold: Double = ConfigFactory.load.getDouble("distance.threshold")
 
-  private def getDistance(dataPoint1: String, dataPoint2: String): Double = {
+  private def getEuclideanDistance(dataPoint1: String, dataPoint2: String): Double = {
+    val y1 = DataParser.getY(dataPoint1)
+    val y2 = DataParser.getY(dataPoint2)
+
+    val x1 = DataParser.getX(dataPoint1)
+    val x2 = DataParser.getX(dataPoint2)
+
+    DistanceMeasure.euclideanDistance(x1, y1, x2, y2)
+  }
+
+  private def getHaversineDistance(dataPoint1: String, dataPoint2: String): Double = {
     val lat1 = DataParser.getY(dataPoint1)
     val lat2 = DataParser.getY(dataPoint2)
 
@@ -63,7 +73,7 @@ class GridSearchReducer extends Reducer[LongWritable, Text, Text, Text] {
               }
             }
           range.filter {
-            dataPointInrange => (getDistance(objectSet(i), dataPointInrange) <= distanceThreshold)
+            dataPointInrange => (getEuclideanDistance(objectSet(i), dataPointInrange) <= distanceThreshold)
           }.foreach { dataPoint => (resultSet += ((objectSet(i), dataPoint))) }
           activeSet += objectSet(i)
           resultSet += ((objectSet(i), objectSet(i)))

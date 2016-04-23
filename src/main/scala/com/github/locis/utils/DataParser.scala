@@ -8,8 +8,8 @@ object DataParser {
 
   private val sep = ","
   private val typeIndex = 1 //crime type
-  private val xIndex = 2 //longitude
-  private val yIndex = 3 //latitude
+  private val xIndex = 2 //x coordinate
+  private val yIndex = 3 //y coordinate
 
   def getType(dataPoint: String) = {
     dataPoint.split(sep)(typeIndex)

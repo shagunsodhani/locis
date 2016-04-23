@@ -23,4 +23,12 @@ object DistanceMeasure {
     earthRadius * c
   }
 
+  def euclideanDistance(x1: Double, y1: Double, x2: Double, y2: Double) = {
+    /*
+ * Function to return distance between two points in the euclidean space.
+ * The unit is not known but can be worked out.
+ */
+    math.sqrt(math.pow(x1 - x2, 2) + math.pow(y1 - y2, 2))
+  }
+
 }

@@ -21,12 +21,12 @@ object DataLoader {
     val mysql = new Mysql()
     val sqlQuery = {
       if (limit < 0) {
-        "SELECT id, primary_type, longitude, latitude FROM dataset ORDER BY date ASC"
+        "SELECT id, primary_type, xcoordinate, ycoordinate FROM dataset ORDER BY date ASC"
       } else if (start < 0) {
-        "SELECT id, primary_type, longitude, latitude FROM dataset ORDER BY date ASC LIMIT " +
+        "SELECT id, primary_type, xcoordinate, ycoordinate FROM dataset ORDER BY date ASC LIMIT " +
           limit.toString()
       } else {
-        "SELECT id, primary_type, longitude, latitude FROM dataset ORDER BY date ASC LIMIT " +
+        "SELECT id, primary_type, xcoordinate, ycoordinate FROM dataset ORDER BY date ASC LIMIT " +
           start.toString() + ", " + limit.toString()
       }
     }
