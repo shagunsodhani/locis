@@ -11,3 +11,5 @@ mysql.database=
 fs.defaultFS=
 
 distance.threshold=
+
+socrata.key=

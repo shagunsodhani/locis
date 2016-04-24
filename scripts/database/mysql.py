@@ -1,11 +1,11 @@
 import os
-import utils
+from utils.configParser import parse
 import MySQLdb
 
 def connect(config_path):
 
     '''Open database connection and return conn object to perform database queries'''
-    config = utils.configParser(config_path)
+    config = parse(config_path)
     host = config['mysql.host']
     user = config['mysql.username']
     passwd = config['mysql.password']
