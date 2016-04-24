@@ -86,7 +86,7 @@ class Socrata():
 
 if __name__ == '__main__':
     config_path = "src/main/resources/reference.conf"
-    a = Socrata(limit = 1, config_path = config_path)
+    a = Socrata(limit = 1000, config_path = config_path)
     offset = 4870000
-    a.fetch_json(offset)
-    # a.fetch_all(offset = offset) 
+    # a.fetch_json(offset)
+    a.fetch_all(offset = 0) 

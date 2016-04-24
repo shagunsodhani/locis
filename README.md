@@ -7,7 +7,13 @@ Implementation of  [A Parallel Spatial Co-location Mining Algorithm Based on Map
 * Copy `src/main/resources/reference.conf.sample` to `src/main/resources/reference.conf` and populate values.
 * Run `mvn clean install` in project folder.
 
-### To populate HDFS
+### To download dataset
+
+* Obtain an application token from [Socrata portal](https://dev.socrata.com/register) and copy it to `socrata.key` field in `reference.conf`.
+* Copy schema from `scripts/schema`.
+* Run `python scripts/scrapper/socrata.py`.
+
+### To load data in HDFS
 
 * Run `scala -cp target/uber-locis-0.0.1-SNAPSHOT.jar com.github.locis.apps.DataLoader`
 
