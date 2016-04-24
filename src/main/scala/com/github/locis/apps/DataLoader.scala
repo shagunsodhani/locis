@@ -3,6 +3,7 @@ package com.github.locis.apps
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
+import com.github.locis.utils.DataParser
 import com.github.locis.utils.HDFSWriter
 import com.github.locis.utils.Mysql
 
@@ -19,15 +20,15 @@ object DataLoader {
   def loadData(limit: Long = -1, start: Long = -1) = {
     //    Be careful with limit=-1. It would bring in a lot of data. (~500 mb)
     val mysql = new Mysql()
+    val baseQuery = "SELECT " + DataParser.getAttributeList.mkString(",") +
+      " FROM dataset ORDER BY date ASC"
     val sqlQuery = {
       if (limit < 0) {
-        "SELECT id, primary_type, xcoordinate, ycoordinate FROM dataset ORDER BY date ASC"
+        baseQuery
       } else if (start < 0) {
-        "SELECT id, primary_type, xcoordinate, ycoordinate FROM dataset ORDER BY date ASC LIMIT " +
-          limit.toString()
+        baseQuery + " LIMIT " + limit.toString()
       } else {
-        "SELECT id, primary_type, xcoordinate, ycoordinate FROM dataset ORDER BY date ASC LIMIT " +
-          start.toString() + ", " + limit.toString()
+        baseQuery + " LIMIT " + start.toString() + ", " + limit.toString()
       }
     }
     mysql.runQuery(sqlQuery)
