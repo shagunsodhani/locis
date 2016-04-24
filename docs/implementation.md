@@ -19,6 +19,11 @@
 * Count instances for different types.
 * Generate size k co-locations.
 
+## Using HBase Data Model
+
+* [Discussion](https://github.com/shagunsodhani/locis/issues/12)
+
+
 ## Notes
 
 * The algorithm does not perform candidate set generation.
