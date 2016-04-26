@@ -10,6 +10,7 @@ mysql.database=
 
 fs.defaultFS=
 
-distance.threshold=
+distance.threshold=50000
+# Note that this value is with respect to x-y coordinate system.
 
 socrata.key=

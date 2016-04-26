@@ -21,8 +21,13 @@
 
 ## Using HBase Data Model
 
-* [Discussion](https://github.com/shagunsodhani/locis/issues/12)
+HBase is used at following places:
 
+* Save *(event, count)* pairs in reducer for [counting instances of different event types](https://github.com/shagunsodhani/locis/issues/8). Here, we can use *event* as the *row key* and *count* as the *value*.
+
+* Save prevalent colocation patterns in reducer for [co-location pattern search](https://github.com/shagunsodhani/locis/issues/7). Here we can use the *eventset* as the *row key*, *size* as the *column key* and *[instance]* as the *value*.
+
+* Read size *k-1* colocations in *scanNTransactions* method in mapper for [co-location pattern search](https://github.com/shagunsodhani/locis/issues/7). Here, the lookup can be performed easily using the *row key* for a given size (*column key*).
 
 ## Notes
 
