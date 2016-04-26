@@ -13,8 +13,8 @@ import org.apache.hadoop.util.GenericOptionsParser
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-import com.github.locis.map.GridMapper
-import com.github.locis.reduce.GridSearchReducer
+import com.github.locis.map.NeighborSearchMapper
+import com.github.locis.reduce.NeighborSearchReducer
 import com.typesafe.config.ConfigFactory
 
 object NeighborSearch {
@@ -32,8 +32,8 @@ object NeighborSearch {
       println("Usage: $HADOOP_HOME/bin/hadoop jar target/uber-locis-0.0.1-SNAPSHOT.jar com.github.locis.apps.NeighborSearch <inputFileName> <outputFileName>")
     } else {
       val job = new Job(configuration, "Neighborhood Search")
-      job.setMapperClass(classOf[GridMapper])
-      job.setReducerClass(classOf[GridSearchReducer])
+      job.setMapperClass(classOf[NeighborSearchMapper])
+      job.setReducerClass(classOf[NeighborSearchReducer])
       job.setMapOutputKeyClass(classOf[LongWritable])
       job.setMapOutputValueClass((classOf[Text]))
       job.setOutputValueClass(classOf[Text])
@@ -44,5 +44,5 @@ object NeighborSearch {
       val status = if (job.waitForCompletion(true)) 0 else 1
       System.exit(status)
     }
-  }
+  }  
 }

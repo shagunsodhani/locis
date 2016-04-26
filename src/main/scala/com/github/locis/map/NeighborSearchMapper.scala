@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory
  * See : https://github.com/shagunsodhani/locis/issues/2
  */
 
-class GridMapper extends Mapper[LongWritable, Text, LongWritable, Text] {
+class NeighborSearchMapper extends Mapper[LongWritable, Text, LongWritable, Text] {
 
   private val logger: Logger = LoggerFactory.getLogger(getClass)
   

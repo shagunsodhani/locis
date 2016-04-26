@@ -16,7 +16,7 @@ import com.typesafe.config.ConfigFactory
  * See : https://github.com/shagunsodhani/locis/issues/3
  */
 
-class GridSearchReducer extends Reducer[LongWritable, Text, Text, Text] {
+class NeighborSearchReducer extends Reducer[LongWritable, Text, Text, Text] {
 
   private val logger: Logger = LoggerFactory.getLogger(getClass)
 
