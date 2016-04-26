@@ -40,8 +40,13 @@ object DataParser {
     val yIndex = attributeIndexMap("y_coordinate")
     dataPoint.split(sep)(yIndex).toDouble
   }
-  
+
   def getAttributeList: List[String] = {
     attributeList
+  }
+
+  def getKeyForGridMapping(dataPoint: String): String = {
+    val keyIndex = attributeIndexMap("district")
+    dataPoint.split(sep)(keyIndex)
   }
 }
