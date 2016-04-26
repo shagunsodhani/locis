@@ -34,7 +34,7 @@ object NeighborSearch {
       val job = new Job(configuration, "Neighborhood Search")
       job.setMapperClass(classOf[NeighborSearchMapper])
       job.setReducerClass(classOf[NeighborSearchReducer])
-      job.setMapOutputKeyClass(classOf[LongWritable])
+      job.setMapOutputKeyClass(classOf[Text])
       job.setMapOutputValueClass((classOf[Text]))
       job.setOutputValueClass(classOf[Text])
       job.setOutputKeyClass(classOf[Text])

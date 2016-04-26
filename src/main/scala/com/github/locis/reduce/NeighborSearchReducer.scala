@@ -16,7 +16,7 @@ import com.typesafe.config.ConfigFactory
  * See : https://github.com/shagunsodhani/locis/issues/3
  */
 
-class NeighborSearchReducer extends Reducer[LongWritable, Text, Text, Text] {
+class NeighborSearchReducer extends Reducer[Text, Text, Text, Text] {
 
   private val logger: Logger = LoggerFactory.getLogger(getClass)
 
@@ -54,9 +54,9 @@ class NeighborSearchReducer extends Reducer[LongWritable, Text, Text, Text] {
     //    sorted Object Set
     var activeSet = Set[String]()
     var resultSet = Set[(String, String)]()
-    var j = 1
+    var j = 0
     val n = objectSet.length
-    (1 to n).foreach {
+    (0 to n-1).foreach {
       i =>
         {
           while (DataParser.getX(objectSet(i)) - DataParser.getX(objectSet(j)) > distanceThreshold) {
@@ -82,8 +82,8 @@ class NeighborSearchReducer extends Reducer[LongWritable, Text, Text, Text] {
     resultSet
   }
 
-  override def reduce(key: LongWritable, values: java.lang.Iterable[Text],
-                      context: Reducer[LongWritable, Text, Text, Text]#Context): Unit = {
+  override def reduce(key: Text, values: java.lang.Iterable[Text],
+                      context: Reducer[Text, Text, Text, Text]#Context): Unit = {
     planeSweep(values).foreach { dataPoint =>
       {
         context.write(new Text(dataPoint._1), new Text(dataPoint._2))
