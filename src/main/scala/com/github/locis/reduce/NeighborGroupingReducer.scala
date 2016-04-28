@@ -13,11 +13,11 @@ import com.github.locis.utils.DataParser
  * See : https://github.com/shagunsodhani/locis/issues/6
  */
 
-class NeighborGroupingReducer extends Reducer[Text, Text, Text, Seq[Text]] {
+class NeighborGroupingReducer extends Reducer[Text, Text, Text, Text] {
   private val logger: Logger = LoggerFactory.getLogger(getClass)
 
   override def reduce(key: Text, values: java.lang.Iterable[Text],
-                      context: Reducer[Text, Text, Text, Seq[Text]]#Context): Unit = {
+                      context: Reducer[Text, Text, Text, Text]#Context): Unit = {
     val dataPointIterator = values.iterator()
     val sortedObjectSet = {
       var tempObjectSet = Set[String]()
@@ -25,8 +25,8 @@ class NeighborGroupingReducer extends Reducer[Text, Text, Text, Seq[Text]] {
         tempObjectSet += dataPointIterator.next().toString()
       }
       tempObjectSet.toSeq.sortBy { dataPoint => DataParser.getType(dataPoint) }
-    }.map { dataPoint => new Text(dataPoint) }
-    val nRecord = Seq(key) ++ sortedObjectSet
-    context.write(key, nRecord)
+    }
+    val nRecord = (Seq(key.toString()) ++ sortedObjectSet).mkString("\t")
+    context.write(key, new Text(nRecord))
   }
 }
