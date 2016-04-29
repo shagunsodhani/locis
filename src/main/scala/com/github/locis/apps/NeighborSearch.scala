@@ -11,6 +11,10 @@ import com.github.locis.reduce.NeighborSearchReducer
 
 object NeighborSearch extends MapReduceJob {
 
+  def jobName: String = {
+    "NeighborSearch"
+  }
+
   def run(inputPath: Path, outputPath: Path): Unit = {
 
     val job = new Job(configuration, "Neighborhood Search")

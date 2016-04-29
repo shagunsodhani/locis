@@ -11,6 +11,10 @@ import com.github.locis.reduce.NeighborGroupingReducer
 
 object NeighborGrouping extends MapReduceJob {
 
+  def jobName: String = {
+    "NeighborGrouping"
+  }
+
   def run(inputPath: Path, outputPath: Path): Unit = {
 
     val job = new Job(configuration, "Neighborhood Grouping")

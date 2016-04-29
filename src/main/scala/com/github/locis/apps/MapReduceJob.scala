@@ -15,10 +15,12 @@ abstract class MapReduceJob {
 
   def run(inputPath: Path, outputPath: Path)
 
+  def jobName(): String
+
   def main(args: Array[String]): Unit = {
     val otherArgs = new GenericOptionsParser(configuration, args).getRemainingArgs
     if (otherArgs.length != 2) {
-      println("Usage: $HADOOP_HOME/bin/hadoop jar target/uber-locis-0.0.1-SNAPSHOT.jar com.github.locis.apps.JOBNAME <inputFileName> <outputFileName>")
+      println("Usage: $HADOOP_HOME/bin/hadoop jar target/uber-locis-0.0.1-SNAPSHOT.jar com.github.locis.apps." + jobName + " <inputFileName> <outputFileName>")
     } else {
       val inputPath = new Path(args(0))
       val outputPath = new Path(args(1))

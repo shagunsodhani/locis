@@ -15,6 +15,10 @@ object CountInstance extends MapReduceJob {
 
   private val hBaseUtil = new HBaseUtil()
 
+  def jobName: String = {
+    "CountInstance"
+  }
+
   def run(inputPath: Path, outputPath: Path): Unit = {
     hBaseUtil.createInstanceCountTable()
     val job = new Job(configuration, "Neighborhood Grouping")
