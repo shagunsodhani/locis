@@ -4,7 +4,9 @@ Implementation of  [A Parallel Spatial Co-location Mining Algorithm Based on Map
 ## Setup
 
 * Download and setup Scala, Hadoop (with HDFS) and HBase for versions given [here](docs/implementation.md).
-* Refer [this](https://github.com/shagunsodhani/book-keeper) for sample values for Hadoop and HBase configurations in pseudo distributed mode.
+* Refer [this](https://github.com/shagunsodhani/book-keeper) for sample values for Hadoop and HBase configurations in pseudo distributed mode and [this](docs/known-issues.md) for some known issues when setting up HBase. 
+* Start Hadoop using `$HADOOP_HOME/sbin/start-dfs.sh` and HBase using `$HBASE_HOME/bin/start-hbase.sh`.
+* Verify that Hadoop and HBase are working propery by opening [http://localhost:50070/](http://localhost:50070/) and [http://localhost:16010/](http://localhost:16010/) respectively.
 * Copy `src/main/resources/reference.conf.sample` to `src/main/resources/reference.conf` and populate values.
 * Run `mvn clean install` in project folder.
 
