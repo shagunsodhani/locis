@@ -13,13 +13,15 @@ import com.github.locis.utils.DataParser
  * See : https://github.com/shagunsodhani/locis/issues/8
  */
 
-class CountInstanceMapper extends Mapper[Text, Seq[Text], Text, LongWritable] {
+class CountInstanceMapper extends Mapper[LongWritable, Text, Text, LongWritable] {
 
   private val logger: Logger = LoggerFactory.getLogger(getClass)
 
-  override def map(key: Text, value: Seq[Text],
-                   context: Mapper[Text, Seq[Text], Text, LongWritable]#Context) = {
-    context.write(new Text(DataParser.getType(key.toString())), new LongWritable(1L))
+  override def map(key: LongWritable, value: Text,
+                   context: Mapper[LongWritable, Text, Text, LongWritable]#Context) = {
+    val line = value.toString().split("\t")
+    val keyString = line(0)
+    context.write(new Text(DataParser.getType(keyString)), new LongWritable(1L))
   }
 
 }
