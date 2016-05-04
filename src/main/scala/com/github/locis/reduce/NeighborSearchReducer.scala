@@ -75,7 +75,9 @@ class NeighborSearchReducer extends Reducer[Text, Text, Text, Text] {
             dataPointInrange => (getEuclideanDistance(objectSet(i), dataPointInrange) <= distanceThreshold)
           }.foreach { dataPoint => (resultSet += ((objectSet(i), dataPoint))) }
           activeSet += objectSet(i)
-          resultSet += ((objectSet(i), objectSet(i)))
+//    This step adds a data point as its own neighbor but does not seem to be required. Infact, using this step can make
+//    the scanNTransactions step slower.
+//          resultSet += ((objectSet(i), objectSet(i)))
         }
     }
     resultSet
