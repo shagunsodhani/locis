@@ -21,7 +21,7 @@ object CountInstance extends MapReduceJob {
 
   def run(inputPath: Path, outputPath: Path): Unit = {
     hBaseUtil.createInstanceCountTable()
-    val job = new Job(configuration, "Neighborhood Grouping")
+    val job = new Job(configuration, "Count Instance")
     job.setMapperClass(classOf[CountInstanceMapper])
     job.setReducerClass(classOf[CountInstanceReducer])
     job.setMapOutputKeyClass(classOf[Text])

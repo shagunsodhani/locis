@@ -19,7 +19,7 @@ class PatternSearchMapper extends Mapper[LongWritable, Text, Text, Text] {
     true
   }
 
-  private def scanNTransactions(neighborhood: Array[String]): Array[String] = {
+  private def scanNTransactions(neighborhood: Array[String], k: Int): Array[String] = {
     neighborhood
   }
 
@@ -30,7 +30,6 @@ class PatternSearchMapper extends Mapper[LongWritable, Text, Text, Text] {
   private def eventTypeOf(instance: String): String = {
     instance
   }
-  private val k = 2
 
   override def map(key: LongWritable, value: Text,
                    context: Mapper[LongWritable, Text, Text, Text]#Context) = {
@@ -39,7 +38,8 @@ class PatternSearchMapper extends Mapper[LongWritable, Text, Text, Text] {
     val neighborhood = line
       .tail
       .filter { isPrevalentType }
-    scanNTransactions(neighborhood)
+    val k = context.getConfiguration.get("k").toInt
+    scanNTransactions(neighborhood, k)
       .filter { checkCliqueness }
       .foreach { instance =>
         {
