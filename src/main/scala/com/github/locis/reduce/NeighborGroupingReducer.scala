@@ -26,9 +26,9 @@ class NeighborGroupingReducer extends Reducer[Text, Text, Text, Text] {
       }
       tempObjectSet.toSeq.sortBy { dataPoint => DataParser.getType(dataPoint) }
     }
-//    val nRecord = (Seq(key.toString()) ++ sortedObjectSet).mkString("\t")
+    val nRecord = (Seq(key.toString()) ++ sortedObjectSet).mkString("\t")
 //    This step adds the key to the nRecord set for the second time which seems not only unnecessary but also erroneous.
-    val nRecord = sortedObjectSet.mkString("\t")
+//    val nRecord = sortedObjectSet.mkString("\t")
     context.write(key, new Text(nRecord))
   }
 }

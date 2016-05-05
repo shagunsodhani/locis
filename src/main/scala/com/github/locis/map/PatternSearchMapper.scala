@@ -28,7 +28,10 @@ class PatternSearchMapper extends Mapper[LongWritable, Text, Text, Text] {
   }
 
   private def scanNTransactions(neighborhood: Array[String], k: Int): Iterator[Array[String]] = {
-    neighborhood.combinations(k - 1)
+    val key = neighborhood(0)
+    neighborhood
+    .filterNot { _.equals(key) }
+    .combinations(k - 1)
   }
 
   private def checkCliqueness(instance: Array[String]): Boolean = {
@@ -50,7 +53,6 @@ class PatternSearchMapper extends Mapper[LongWritable, Text, Text, Text] {
     val line = value.toString().split("\t")
     val keyString = line(0)
     val neighborhood = line
-      .tail
       .tail
       .filter { neighbor => isPrevalentType(neighbor, k) }
 
