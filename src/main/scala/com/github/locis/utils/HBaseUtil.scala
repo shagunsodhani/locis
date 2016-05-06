@@ -5,8 +5,10 @@ import org.apache.hadoop.hbase.HColumnDescriptor
 import org.apache.hadoop.hbase.HTableDescriptor
 import org.apache.hadoop.hbase.TableName
 import org.apache.hadoop.hbase.client.ConnectionFactory
+import org.apache.hadoop.hbase.client.Get
 import org.apache.hadoop.hbase.client.HTable
 import org.apache.hadoop.hbase.client.Put
+import org.apache.hadoop.hbase.client.Result
 import org.apache.hadoop.hbase.util.Bytes
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -26,6 +28,8 @@ class HBaseUtil {
   private val admin = connection.getAdmin()
   private val instanceCountTableName = "InstanceCount"
   private val colocationStoreTableName = "ColocationStore"
+  lazy private val colocationStoreTable = new HTable(conf, colocationStoreTableName)
+  lazy private val instanceCountTable = new HTable(conf, instanceCountTableName)
 
   private def isTableExist(tableName: TableName) = {
     admin.tableExists(tableName)
@@ -109,4 +113,14 @@ class HBaseUtil {
     }
   }
 
+  def readColocationStoreTable(rowName: String, size: Int): String = {
+    /*
+     * Method to read the HBase Store.
+     * See : https://github.com/shagunsodhani/locis/issues/15
+     */
+
+    val get = new Get(Bytes.toBytes(rowName))
+    val result: Result = colocationStoreTable.get(get)
+    Bytes.toString(result.getValue(Bytes.toBytes("size"), Bytes.toBytes((size).toString())))
+  }
 }
