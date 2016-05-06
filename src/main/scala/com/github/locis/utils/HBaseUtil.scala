@@ -25,7 +25,7 @@ class HBaseUtil {
   private val connection = ConnectionFactory.createConnection(conf)
   private val admin = connection.getAdmin()
   private val instanceCountTableName = "InstanceCount"
-  private val colocationStoreTableName = "InstanceCount"
+  private val colocationStoreTableName = "ColocationStore"
 
   private def isTableExist(tableName: TableName) = {
     admin.tableExists(tableName)
