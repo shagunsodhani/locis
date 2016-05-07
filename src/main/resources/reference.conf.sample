@@ -12,5 +12,6 @@ fs.defaultFS=
 
 distance.threshold=50000
 # Note that this value is with respect to x-y coordinate system.
+participationIndex.threshold=0.1
 
 socrata.key=

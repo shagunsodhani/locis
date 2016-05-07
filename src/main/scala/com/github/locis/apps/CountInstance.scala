@@ -19,9 +19,9 @@ object CountInstance extends MapReduceJob {
     "CountInstance"
   }
 
-  def run(inputPath: Path, outputPath: Path): Unit = {
+  def run(inputPath: Path, outputPath: Path, args: Array[String]): Unit = {
     hBaseUtil.createInstanceCountTable()
-    val job = new Job(configuration, "Count Instance")
+    val job = new Job(hadoopConfiguration, jobName)
     job.setMapperClass(classOf[CountInstanceMapper])
     job.setReducerClass(classOf[CountInstanceReducer])
     job.setMapOutputKeyClass(classOf[Text])

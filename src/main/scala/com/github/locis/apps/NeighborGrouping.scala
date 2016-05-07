@@ -15,9 +15,9 @@ object NeighborGrouping extends MapReduceJob {
     "NeighborGrouping"
   }
 
-  def run(inputPath: Path, outputPath: Path): Unit = {
+  def run(inputPath: Path, outputPath: Path, args: Array[String]): Unit = {
 
-    val job = new Job(configuration, "Neighborhood Grouping")
+    val job = new Job(hadoopConfiguration, jobName)
     job.setMapperClass(classOf[NeighborGroupingMapper])
     job.setReducerClass(classOf[NeighborGroupingReducer])
     job.setMapOutputKeyClass(classOf[Text])

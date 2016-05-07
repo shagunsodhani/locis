@@ -15,9 +15,9 @@ object NeighborSearch extends MapReduceJob {
     "NeighborSearch"
   }
 
-  def run(inputPath: Path, outputPath: Path): Unit = {
+  def run(inputPath: Path, outputPath: Path, args: Array[String]): Unit = {
 
-    val job = new Job(configuration, "Neighborhood Search")
+    val job = new Job(hadoopConfiguration, jobName)
     job.setMapperClass(classOf[NeighborSearchMapper])
     job.setReducerClass(classOf[NeighborSearchReducer])
     job.setMapOutputKeyClass(classOf[Text])
