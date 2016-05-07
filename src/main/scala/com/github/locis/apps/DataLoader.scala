@@ -2,10 +2,10 @@ package com.github.locis.apps
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+
 import com.github.locis.utils.DataParser
 import com.github.locis.utils.HDFSWriter
 import com.github.locis.utils.Mysql
-import com.github.locis.utils.HBaseUtil
 
 object DataLoader {
 
@@ -58,12 +58,8 @@ object DataLoader {
   }
 
   def main(args: Array[String]): Unit = {
-    //    val limit: Long = 10
-    //    val pathToWrite = "/user/locis/input/data"
-    //    writeAllData()
-    val hBaseUtil = new HBaseUtil()
-    println(hBaseUtil.readColocationStoreTable(rowName = "B", size = 1)
-      .split("\t").contains("3,B,1,2,0,0,1,0,0,0"))
-
+    val limit: Long = 10
+    val pathToWrite = "/user/locis/input/data"
+    writeAllData()
   }
 }

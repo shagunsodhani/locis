@@ -1,5 +1,7 @@
 package com.github.locis.utils
 
+import scala.collection.JavaConverters.iterableAsScalaIterableConverter
+
 import org.apache.hadoop.hbase.HBaseConfiguration
 import org.apache.hadoop.hbase.HColumnDescriptor
 import org.apache.hadoop.hbase.HTableDescriptor
@@ -9,6 +11,7 @@ import org.apache.hadoop.hbase.client.Get
 import org.apache.hadoop.hbase.client.HTable
 import org.apache.hadoop.hbase.client.Put
 import org.apache.hadoop.hbase.client.Result
+import org.apache.hadoop.hbase.client.Scan
 import org.apache.hadoop.hbase.util.Bytes
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -28,8 +31,6 @@ class HBaseUtil {
   private val admin = connection.getAdmin()
   private val instanceCountTableName = "InstanceCount"
   private val colocationStoreTableName = "ColocationStore"
-  lazy private val colocationStoreTable = new HTable(conf, colocationStoreTableName)
-  lazy private val instanceCountTable = new HTable(conf, instanceCountTableName)
 
   private def isTableExist(tableName: TableName) = {
     admin.tableExists(tableName)
@@ -113,12 +114,26 @@ class HBaseUtil {
     }
   }
 
-  def readColocationStoreTable(rowName: String, size: Int): String = {
+  def scanColocationStoreColumn(columnName: String, size: Int): Iterable[String] = {
     /*
-     * Method to read the HBase Store.
+     * Method to scan a column in HBase.
      * See : https://github.com/shagunsodhani/locis/issues/15
      */
+    val colocationStoreTable = new HTable(conf, colocationStoreTableName)
+    val scan = new Scan()
+    scan.addColumn(Bytes.toBytes(columnName), Bytes.toBytes(size.toString()))
+    colocationStoreTable
+      .getScanner(scan)
+      .asScala
+      .map { result => Bytes.toString(result.getRow) }
+  }
 
+  def readColocationStoreRow(rowName: String, size: Int): String = {
+    /*
+     * Method to read a row in HBase.
+     * See : https://github.com/shagunsodhani/locis/issues/15
+     */
+    val colocationStoreTable = new HTable(conf, colocationStoreTableName)
     val get = new Get(Bytes.toBytes(rowName))
     val result: Result = colocationStoreTable.get(get)
     Bytes.toString(result.getValue(Bytes.toBytes("size"), Bytes.toBytes((size).toString())))
