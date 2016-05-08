@@ -138,4 +138,29 @@ class HBaseUtil {
     val result: Result = colocationStoreTable.get(get)
     Bytes.toString(result.getValue(Bytes.toBytes("size"), Bytes.toBytes((size).toString())))
   }
+
+  def readInstanceCountRow(rowName: String, size: Int = 1): String = {
+    /*
+     * Method to read a row in HBase.
+     * See : https://github.com/shagunsodhani/locis/issues/15
+     */
+    val instanceCountTable = new HTable(conf, instanceCountTableName)
+    val get = new Get(Bytes.toBytes(rowName))
+    val result: Result = instanceCountTable.get(get)
+    Bytes.toString(result.getValue(Bytes.toBytes("size"), Bytes.toBytes((size).toString())))
+  }
+
+  def scanInstanceCountColumn(columnName: String, size: Int = 1): Iterable[String] = {
+    /*
+     * Method to scan a column in HBase.
+     * See : https://github.com/shagunsodhani/locis/issues/15
+     */
+    val instanceCountTable = new HTable(conf, instanceCountTableName)
+    val scan = new Scan()
+    scan.addColumn(Bytes.toBytes(columnName), Bytes.toBytes(size.toString()))
+    instanceCountTable
+      .getScanner(scan)
+      .asScala
+      .map { result => Bytes.toString(result.getRow) }
+  }
 }
