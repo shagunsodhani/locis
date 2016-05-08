@@ -18,6 +18,9 @@ object CountInstance extends MapReduceJob {
   def jobName: String = {
     "CountInstance"
   }
+  
+    override protected val errorMsg = "Usage: $HADOOP_HOME/bin/hadoop jar target/uber-locis-0.0.1-SNAPSHOT.jar " +
+    "com.github.locis.apps." + jobName + " <input_path_to_read_neighbor_groups> <output_path_to_write_instance_count>"
 
   def run(inputPath: Path, outputPath: Path, args: Array[String]): Unit = {
     hBaseUtil.createInstanceCountTable()

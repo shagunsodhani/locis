@@ -59,7 +59,13 @@ object DataLoader {
 
   def main(args: Array[String]): Unit = {
     val limit: Long = 10
-    val pathToWrite = "/user/locis/input/data"
+    val pathToWrite = {
+      if (args.isEmpty) {
+        "/user/locis/input/data"
+      } else {
+        args(0)
+      }
+    }
     writeAllData()
   }
 }

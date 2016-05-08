@@ -14,6 +14,9 @@ object NeighborGrouping extends MapReduceJob {
   def jobName: String = {
     "NeighborGrouping"
   }
+  
+  override protected val errorMsg = "Usage: $HADOOP_HOME/bin/hadoop jar target/uber-locis-0.0.1-SNAPSHOT.jar " +
+    "com.github.locis.apps." + jobName + " <input_path_to_read_neighbors> <output_path_to_write_neighbor_groups>"
 
   def run(inputPath: Path, outputPath: Path, args: Array[String]): Unit = {
 

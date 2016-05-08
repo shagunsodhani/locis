@@ -20,7 +20,8 @@ object PatternSearch extends MapReduceJob {
   }
 
   override protected val errorMsg = "Usage: $HADOOP_HOME/bin/hadoop jar target/uber-locis-0.0.1-SNAPSHOT.jar " +
-    "com.github.locis.apps." + jobName + " <inputFileName> <outputFileName> <size>"
+    "com.github.locis.apps." + jobName + " <input_path_to_read_neighbor_groups> " + 
+    "<output_path_to_write_prevalence_scores> <size_of_colocation>"
 
   override protected val numberOfArgsExpected = 3
 

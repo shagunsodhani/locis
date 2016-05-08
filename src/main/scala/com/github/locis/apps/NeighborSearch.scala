@@ -15,6 +15,9 @@ object NeighborSearch extends MapReduceJob {
     "NeighborSearch"
   }
 
+  override protected val errorMsg = "Usage: $HADOOP_HOME/bin/hadoop jar target/uber-locis-0.0.1-SNAPSHOT.jar " +
+    "com.github.locis.apps." + jobName + " <input_path_to_read_raw_data> <output_path_to_write_neighbors>"
+
   def run(inputPath: Path, outputPath: Path, args: Array[String]): Unit = {
 
     val job = new Job(hadoopConfiguration, jobName)
