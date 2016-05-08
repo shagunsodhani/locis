@@ -65,10 +65,19 @@ class PatternSearchMapper extends Mapper[LongWritable, Text, Text, Text] {
      *     But querying HBase everytime would be very slow. Given the number of steps this set would take to be created, I am not convinced if
      *     filtering on basis of prevalent colocation types would indeed benefit the implementation.
      */
-    val prevalentColocationTypes = hBaseUtil
-      .scanColocationStoreColumn("size", k - 1)
-      .flatMap(colocationType => colocationType.split(internalSeprator).toIterable)
-      .toSet
+    val prevalentColocationTypes = {
+      if (k > 1) {
+        hBaseUtil
+          .scanColocationStoreColumn("size", k - 1)
+          .flatMap(colocationType => colocationType.split(internalSeprator).toIterable)
+          .toSet
+      } else {
+        hBaseUtil
+          .scanInstanceCountColumn("size")
+          .flatMap(colocationType => colocationType.split(internalSeprator).toIterable)
+          .toSet
+      }
+    }
 
     val neighborhood = line
       .tail
