@@ -26,6 +26,11 @@ object DataParser {
     attributeIndexMap.get(attribute)
   }
 
+  def getId(dataPoint: String): String = {
+    val typeIndex = attributeIndexMap("id")
+    dataPoint.split(sep)(typeIndex)
+  }
+
   def getType(dataPoint: String): String = {
     val typeIndex = attributeIndexMap("primary_type")
     dataPoint.split(sep)(typeIndex)
