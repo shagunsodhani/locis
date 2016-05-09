@@ -1,6 +1,10 @@
 # locis
 Implementation of  [A Parallel Spatial Co-location Mining Algorithm Based on MapReduce](docs/paper/paper.pdf) paper
 
+## Colocation Pattern
+
+A spatial colocation pattern is a set of features that co-occur in space. For example, two crimes, say Robbery and Assault, would form a colocation pattern if they are reported together at many places. Think of spatial colocation pattern mining as [association rule mining](https://en.wikipedia.org/wiki/Association_rule_learning) in the spatial domain.
+
 ## Setup
 
 * Download and setup Scala, Hadoop (with HDFS) and HBase for versions given [here](docs/implementation.md).
