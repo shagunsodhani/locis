@@ -36,11 +36,15 @@
 <p>Implementation of  <a href="docs/paper/paper.pdf">A Parallel Spatial Co-location Mining Algorithm Based on MapReduce</a> paper</p>
 
 <h2>
+<a id="colocation-patterns" class="anchor" href="#colocation-patterns" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Colocation Pattern</h2>
+A spatial colocation pattern is a set of features that co-occur in space. For example, two crimes, say Robbery and Assault, would form a colocation pattern if they are reported together at many places. Think of spatial colocation pattern mining as <a href = "https://en.wikipedia.org/wiki/Association_rule_learning">association rule mining</a> in the spatial domain.
+
+<h2>
 <a id="setup" class="anchor" href="#setup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Setup</h2>
 
 <ul>
-<li>Download and setup Scala, Hadoop (with HDFS) and HBase for versions given <a href="docs/implementation.md">here</a>.</li>
-<li>Refer <a href="https://github.com/shagunsodhani/book-keeper">this</a> for sample values for Hadoop and HBase configurations in pseudo distributed mode and <a href="docs/known-issues.md">this</a> for some known issues when setting up HBase. </li>
+<li>Download and setup Scala, Hadoop (with HDFS) and HBase for versions given <a href="https://github.com/shagunsodhani/locis/blob/master/docs/implementation.md">here</a>.</li>
+<li>Refer <a href="https://github.com/shagunsodhani/book-keeper">this</a> for sample values for Hadoop and HBase configurations in pseudo distributed mode and <a href="https://github.com/shagunsodhani/locis/blob/master/docs/known-issues.md">this</a> for some known issues when setting up HBase. </li>
 <li>Start Hadoop using <code>$HADOOP_HOME/sbin/start-dfs.sh</code> and HBase using <code>$HBASE_HOME/bin/start-hbase.sh</code>.</li>
 <li>Verify that Hadoop and HBase are working propery by opening <a href="http://localhost:50070/">http://localhost:50070/</a> and <a href="http://localhost:16010/">http://localhost:16010/</a> respectively.</li>
 <li>Copy <code>src/main/resources/reference.conf.sample</code> to <code>src/main/resources/reference.conf</code> and populate values.</li>
