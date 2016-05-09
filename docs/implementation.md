@@ -7,6 +7,7 @@
 | Tech   |  Version | 
 |--------|----------| 
 | Scala  |  2.11.7  | 
+| java   |    1.8   | 
 | Hadoop |  2.7.2   | 
 | HBase  |  1.2.1   | 
 

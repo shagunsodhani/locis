@@ -43,3 +43,7 @@ Implementation of  [A Parallel Spatial Co-location Mining Algorithm Based on Map
 * Run `$HADOOP_HOME/bin/hadoop jar target/uber-locis-0.0.1-SNAPSHOT.jar com.github.locis.apps.PatternSearch <input_path_to_read_neighbor_groups> <output_path_to_write_prevalence_scores> <size_of_colocation>`
 
 Note that for running colocation pattern search task for size k, the results for size 1 to *k-1* should already be in the db. So to find colocation patterns of size *k*, run the script for 1 to *k* and not just *k*. This task can be easily automated using a bash script. 
+
+### License
+
+[MIT](https://shagun.mit-license.org/)
