@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>locis by shagunsodhani</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">locis</h1>
+      <h2 class="project-tagline">A Parallel Spatial Co-location Mining Algorithm Based on MapReduce</h2>
+      <a href="https://github.com/shagunsodhani/locis" class="btn">View on GitHub</a>
+      <a href="https://github.com/shagunsodhani/locis/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/shagunsodhani/locis/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="locis" class="anchor" href="#locis" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>locis</h1>
+
+<p>Implementation of  <a href="docs/paper/paper.pdf">A Parallel Spatial Co-location Mining Algorithm Based on MapReduce</a> paper</p>
+
+<h2>
+<a id="setup" class="anchor" href="#setup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Setup</h2>
+
+<ul>
+<li>Download and setup Scala, Hadoop (with HDFS) and HBase for versions given <a href="docs/implementation.md">here</a>.</li>
+<li>Refer <a href="https://github.com/shagunsodhani/book-keeper">this</a> for sample values for Hadoop and HBase configurations in pseudo distributed mode and <a href="docs/known-issues.md">this</a> for some known issues when setting up HBase. </li>
+<li>Start Hadoop using <code>$HADOOP_HOME/sbin/start-dfs.sh</code> and HBase using <code>$HBASE_HOME/bin/start-hbase.sh</code>.</li>
+<li>Verify that Hadoop and HBase are working propery by opening <a href="http://localhost:50070/">http://localhost:50070/</a> and <a href="http://localhost:16010/">http://localhost:16010/</a> respectively.</li>
+<li>Copy <code>src/main/resources/reference.conf.sample</code> to <code>src/main/resources/reference.conf</code> and populate values.</li>
+<li>Run <code>mvn clean install</code> in project folder.</li>
+</ul>
+
+<h3>
+<a id="to-download-dataset" class="anchor" href="#to-download-dataset" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>To download dataset</h3>
+
+<ul>
+<li>Obtain an application token from <a href="https://dev.socrata.com/register">Socrata portal</a> and copy it to <code>socrata.key</code> field in <code>reference.conf</code>.</li>
+<li>Copy schema from <code>scripts/schema</code>.</li>
+<li>Run <code>python scripts/scrapper/socrata.py</code>.</li>
+</ul>
+
+<h3>
+<a id="to-load-data-in-hdfs" class="anchor" href="#to-load-data-in-hdfs" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>To load data in HDFS</h3>
+
+<ul>
+<li>Run <code>scala -cp target/uber-locis-0.0.1-SNAPSHOT.jar com.github.locis.apps.DataLoader &lt;input_path_to_write_raw_data&gt;</code>
+</li>
+<li>If no path is provided, it writes to <code>/user/locis/input/data</code>
+</li>
+</ul>
+
+<h3>
+<a id="dummy-dataset" class="anchor" href="#dummy-dataset" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Dummy Dataset</h3>
+
+<ul>
+<li>A very small dataset (6 rows) can be found in <code>sampleData\data</code> file. The file can be used for testing the different MapReduce tasks without having to download the socrata dataset. 
+*Add the file to hdfs using the put command <code>$HADOOP_HOME/bin/hdfs dfs -put &lt;path_to_locis&gt;/sampleData/data &lt;input_path_to_write_raw_data&gt;</code> and proceed to run MapReduce tasks.</li>
+</ul>
+
+<h3>
+<a id="to-run-neighbour-search-mapreduce-task" class="anchor" href="#to-run-neighbour-search-mapreduce-task" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>To run Neighbour Search MapReduce task</h3>
+
+<ul>
+<li>Run <code>$HADOOP_HOME/bin/hadoop jar target/uber-locis-0.0.1-SNAPSHOT.jar com.github.locis.apps.NeighborSearch &lt;input_path_to_read_raw_data&gt; &lt;output_path_to_write_neighbors&gt;</code>
+</li>
+</ul>
+
+<h3>
+<a id="to-run-neighbour-grouping-mapreduce-task" class="anchor" href="#to-run-neighbour-grouping-mapreduce-task" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>To run Neighbour Grouping MapReduce task</h3>
+
+<ul>
+<li>Run <code>$HADOOP_HOME/bin/hadoop jar target/uber-locis-0.0.1-SNAPSHOT.jar com.github.locis.apps.NeighborGrouping &lt;input_path_to_read_neighbors&gt; &lt;output_path_to_write_neighbor_groups&gt;</code>
+</li>
+</ul>
+
+<h3>
+<a id="to-run-count-instance-mapreduce-task" class="anchor" href="#to-run-count-instance-mapreduce-task" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>To run Count Instance MapReduce task</h3>
+
+<ul>
+<li>Run <code>$HADOOP_HOME/bin/hadoop jar target/uber-locis-0.0.1-SNAPSHOT.jar com.github.locis.apps.CountInstance &lt;input_path_to_read_neighbor_groups&gt; &lt;output_path_to_write_instance_count&gt;</code>
+</li>
+</ul>
+
+<h3>
+<a id="to-run-colocation-pattern-search-mapreduce-task" class="anchor" href="#to-run-colocation-pattern-search-mapreduce-task" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>To run Colocation Pattern Search MapReduce task</h3>
+
+<ul>
+<li>Run <code>$HADOOP_HOME/bin/hadoop jar target/uber-locis-0.0.1-SNAPSHOT.jar com.github.locis.apps.PatternSearch &lt;input_path_to_read_neighbor_groups&gt; &lt;output_path_to_write_prevalence_scores&gt; &lt;size_of_colocation&gt;</code>
+</li>
+</ul>
+
+<p>Note that for running colocation pattern search task for size k, the results for size 1 to <em>k-1</em> should already be in the db. So to find colocation patterns of size <em>k</em>, run the script for 1 to <em>k</em> and not just <em>k</em>. This task can be easily automated using a bash script. </p>
+
+<h3>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h3>
+
+<p><a href="https://shagun.mit-license.org/">MIT</a></p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/shagunsodhani/locis">locis</a> is maintained by <a href="https://github.com/shagunsodhani">shagunsodhani</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
