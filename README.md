@@ -27,8 +27,8 @@ A spatial colocation pattern is a set of features that co-occur in space. For ex
 
 ### Dummy Dataset
 
-* A very small dataset (6 rows) can be found in `sampleData\data` file. The file can be used for testing the different MapReduce tasks without having to download the socrata dataset. 
-*Add the file to hdfs using the put command `$HADOOP_HOME/bin/hdfs dfs -put <path_to_locis>/sampleData/data <input_path_to_write_raw_data>` and proceed to run MapReduce tasks.
+* A very small dataset (6 rows) can be found in `sampleData/data` file. The file can be used for testing the different MapReduce tasks without having to download the socrata dataset. 
+* Add the file to hdfs using the put command `$HADOOP_HOME/bin/hdfs dfs -put <path_to_locis>/sampleData/data <input_path_to_write_raw_data>` and proceed to run MapReduce tasks.
 
 ### To run Neighbour Search MapReduce task
 
