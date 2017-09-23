@@ -1,5 +1,6 @@
 # locis
 Implementation of  [A Parallel Spatial Co-location Mining Algorithm Based on MapReduce](docs/paper/paper.pdf) paper
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.971748.svg)](https://doi.org/10.5281/zenodo.971748)
 
 ## Colocation Pattern
 
