@@ -1,0 +1,8 @@
+title: locis
+description: A Parallel Spatial Co-location Mining Algorithm Based on MapReduce
+google_analytics: 
+show_downloads: true
+theme: jekyll-theme-cayman
+
+gems:
+  - jekyll-mentions
