@@ -1,5 +1,10 @@
 # locis
 Implementation of  [A Parallel Spatial Co-location Mining Algorithm Based on MapReduce](docs/paper/paper.pdf) paper
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.971748.svg)](https://doi.org/10.5281/zenodo.971748)
+
+## Colocation Pattern
+
+A spatial colocation pattern is a set of features that co-occur in space. For example, two crimes, say Robbery and Assault, would form a colocation pattern if they are reported together at many places. Think of spatial colocation pattern mining as [association rule mining](https://en.wikipedia.org/wiki/Association_rule_learning) in the spatial domain.
 
 ## Setup
 
@@ -23,8 +28,8 @@ Implementation of  [A Parallel Spatial Co-location Mining Algorithm Based on Map
 
 ### Dummy Dataset
 
-* A very small dataset (6 rows) can be found in `sampleData\data` file. The file can be used for testing the different MapReduce tasks without having to download the socrata dataset. 
-*Add the file to hdfs using the put command `$HADOOP_HOME/bin/hdfs dfs -put <path_to_locis>/sampleData/data <input_path_to_write_raw_data>` and proceed to run MapReduce tasks.
+* A very small dataset (6 rows) can be found in `sampleData/data` file. The file can be used for testing the different MapReduce tasks without having to download the socrata dataset. 
+* Add the file to hdfs using the put command `$HADOOP_HOME/bin/hdfs dfs -put <path_to_locis>/sampleData/data <input_path_to_write_raw_data>` and proceed to run MapReduce tasks.
 
 ### To run Neighbour Search MapReduce task
 
